@@ -84,6 +84,7 @@ def getRecommendations(prefs,person,similarity=sim_pearson):
 			rankings.reverse()
 			return rankings
 
+# functions I create start here
 
 def plot_pearson(prefs):
 	n = len(prefs)
@@ -109,6 +110,8 @@ def plot_simdist(prefs):
 	cbar = fig.colorbar()
 	plt.show()
 	return P
+
+# functions I create ended
 
 
 
