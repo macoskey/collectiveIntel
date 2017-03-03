@@ -53,6 +53,14 @@ def sim_pearson(prefs,p1,p2):
 	
 	return r
 
+# returns the best matches for person from the prefs dictionary. The number of results and similarity function are optional parameters
+def topMatches(prefs,person,n=5,similarity=sim_pearson):
+	scores = [(similarity(prefs,person,other),other)
+						for other in prefs if other != person]
+	scores.sort()
+	scores.reverse()
+	return scores[0:n]
+
 # gets recommendations for a person by using a weighted average of every other user's rankings
 def getRecommendations(prefs,person,similarity=sim_pearson):
 	totals = {}
@@ -62,7 +70,7 @@ def getRecommendations(prefs,person,similarity=sim_pearson):
 		if other == person: continue
 		
 		sim = similarity(prefs,person,other)
-
+		print sim
 		# ignore scores of zero or lower
 		if sim <=0: continue
 
@@ -74,17 +82,33 @@ def getRecommendations(prefs,person,similarity=sim_pearson):
 				totals[item]+=prefs[other][item]*sim
 				# sum of similarities
 				simSums.setdefault(item,0)
-				sumSums[item]+=sim
+				simSums[item]+=sim
 
-			# create the normalized list
-			rankings = [(total/simSums[item],item) for item, totals in totals.item()]
+	# create the normalized list
+	rankings = [(total/simSums[item],item) for item,total in totals.items()]
 
-			# return the sorted list
-			rankings.sort()
-			rankings.reverse()
-			return rankings
+	# return the sorted list
+	rankings.sort()
+	rankings.reverse()
+	return rankings
+
+def transformPrefs(prefs):
+	result={}
+	for person in prefs:
+		for item in prefs[person]:
+			result.setdefault(item,{})
+
+			# flip item and person
+			result[item][person] = prefs[person][item]
+	return result
 
 # functions I create start here
+def loopTest(prefs):
+	i = 0
+	for other in prefs:
+		i += 1
+		print i
+
 
 def plot_pearson(prefs):
 	n = len(prefs)
