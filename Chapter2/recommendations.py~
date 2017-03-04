@@ -1,7 +1,3 @@
-
-# from Collective Intelligence - most copy code, some my code
-# J. Macoskey
-
 from math import sqrt 
 import numpy as np
 import scipy.io as sio
