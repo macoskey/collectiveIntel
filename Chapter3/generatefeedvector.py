@@ -30,3 +30,24 @@ def getwords(html):
 
 	# convert to lowercase
 	return [word.lower() for word in words if word!='']
+
+
+
+apcount = {}
+wordcounts = {}
+feedlist = []
+for feedurl in file('feedlist.txt'):
+	feedlist.add(feedurl)
+	title,wc = getwordcounts(feedurl)
+	wordcounts[title] = wc
+	for word, count in wc.items():
+		apcount.setdefault(word,0)
+		if count > 1:
+			apcount[word]+=1
+
+wordlist = []
+for w, bc in apcount.items():
+	frac = fload(bc)/len(feedlist)
+	if frac > 0.1 and frac < 0.5:
+		wordlist.append(w)
+		
