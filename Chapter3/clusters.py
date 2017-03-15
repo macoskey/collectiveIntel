@@ -15,7 +15,7 @@ def readfile(filename):
         # first column in each row is the rowname
         rownames.append(p[0])
         # the data for this row is the remainder of the row
-        data.append([float(x) for x in p[1:])
+        data.append([float(x) for x in p[1:]])
     return (rownames,colnames,data)
     
 def pearson(v1,v2):
@@ -56,24 +56,23 @@ def hcluster(rows,deistance=pearson):
             for j in range(i+1,len(clust)):
             # distances is the cache of distance calcuations. 
             # This is like the Pij matrix.
-            if (clust[i].id,clust[j].id) not in distances:
-                distances[(clust[i].id,clist[j].id] =
-                distance(clust[i].vec,clust[j].vec)
+                if (clust[i].id,clust[j].id) not in distances:
+                    distances[(clust[i].id,clust[j].id)]=distance(clust[i].vec,
+                    clust[j].vec)
 
-            d = distances[(clust[i].id,clust[j].id)]
+                d = distances[(clust[i].id,clust[j].id)]
 
-            if d < closest:
-                closest = d
-                lowestpair = (i,j)
+                if d < closest:
+                    closest = d
+                    lowestpair = (i,j)
         
 # calculate the average of the two clusters
         mergevec = [(clust[lowestpair[0]].vec[i]+clust[lowestpair[1]].vec[i])/2
         for i in range(len(clust[0].vec))]
 
 # create the new cluster
-        newcluster =
-        bicluster(mergevec,left=clust[lowestpair[0]],right=clust[lowestpair[1]],
-        distance = closest, id = currentclustid)
+        newcluster=bicluster(mergevec,left=clust[lowestpair[0]],
+        right=clust[lowestpair[1]],distance = closest, id = currentclustid)
 
 # cluster ids that weren't in the original set are negative
         currentclustid = -1
