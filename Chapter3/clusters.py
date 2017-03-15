@@ -39,9 +39,9 @@ class bicluster:
         self.right=right
         self.vec=vec
         self.id=id
-        selv.distance=distance
+        self.distance=distance
 
-def hcluster(rows,deistance=pearson):
+def hcluster(rows,distance=pearson):
     distances = {}
     currentclustid = -1
 
@@ -49,7 +49,7 @@ def hcluster(rows,deistance=pearson):
 
     while len(clust) > 1:
         lowestpair = (0,1)
-        closest = distance(culsxt[0].vec,clust[1].vec)
+        closest = distance(clust[0].vec,clust[1].vec)
 
         # loop through every pari looking for the smallest distance
         for i in range(len(clust)):
