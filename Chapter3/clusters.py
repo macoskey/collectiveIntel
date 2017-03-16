@@ -52,20 +52,26 @@ def hcluster(rows,distance=pearson):
         closest = distance(clust[0].vec,clust[1].vec)
 
         # loop through every pari looking for the smallest distance
+        count = 1
         for i in range(len(clust)):
             for j in range(i+1,len(clust)):
             # distances is the cache of distance calcuations. 
             # This is like the Pij matrix.
-                if (clust[i].id,clust[j].id) not in distances:
-                    distances[(clust[i].id,clust[j].id)]=distance(clust[i].vec,
-                    clust[j].vec)
+                try:
+                    if (clust[i].id,clust[j].id) not in distances:
+                        distances[(clust[i].id,clust[j].id)]=distance(clust[i].vec,
+                        clust[j].vec)
+                    # print "%d of %d" % (count,i*j)
+                    # count += 1
 
-                d = distances[(clust[i].id,clust[j].id)]
+                    d = distances[(clust[i].id,clust[j].id)]
 
-                if d < closest:
-                    closest = d
-                    lowestpair = (i,j)
-        
+                    if d < closest:
+                        closest = d
+                        lowestpair = (i,j)
+                except:
+                    print "failed something"
+
 # calculate the average of the two clusters
         mergevec = [(clust[lowestpair[0]].vec[i]+clust[lowestpair[1]].vec[i])/2
         for i in range(len(clust[0].vec))]
