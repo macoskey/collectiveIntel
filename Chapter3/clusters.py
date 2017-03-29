@@ -25,7 +25,12 @@ def pearson(v1,v2):
     sum1sq = sum([pow(v,2) for v in v1])
     sum2sq = sum([pow(v,2) for v in v2])
 
-    sumProd = sum([v1[i] * v2[i] for i in range(len(v1))])
+    # some may have different lengths - take the minimum
+    sumProd = sum([v1[i] * v2[i] for i in min(range(len(v1)),range(len(v2))])
+
+    # tell me if they had different lengths
+    if range(len(v1)) != range(len(v2)):
+        print "%d and %d don't have the same length" % (v1,v2)
 
     num = sumProd - (sum1*sum2/len(v1))
     den = sqrt((sum1sq-pow(sum1,2)/len(v1))*(sum2sq-pow(sum2,2)/len(v1)))
@@ -77,7 +82,7 @@ def hcluster(rows,distance=pearson):
                 except:
                     # print "failed something"
                     count += 1
-        print "%d failed" % (count)
+        print "%d of %d failed" % (count, i*j)
 
 # calculate the average of the two clusters
         mergevec = [(clust[lowestpair[0]].vec[i]+clust[lowestpair[1]].vec[i])/2
