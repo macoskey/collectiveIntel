@@ -26,11 +26,11 @@ def pearson(v1,v2):
     sum2sq = sum([pow(v,2) for v in v2])
 
     # some may have different lengths - take the minimum
-    sumProd = sum([v1[i] * v2[i] for i in min(range(len(v1)),range(len(v2))])
+    sumProd = sum([v1[i] * v2[i] for i in min(range(len(v1)),range(len(v2)))])
 
     # tell me if they had different lengths
     if range(len(v1)) != range(len(v2)):
-        print "%d and %d don't have the same length" % (v1,v2)
+        print "mismatched length"
 
     num = sumProd - (sum1*sum2/len(v1))
     den = sqrt((sum1sq-pow(sum1,2)/len(v1))*(sum2sq-pow(sum2,2)/len(v1)))
