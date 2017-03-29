@@ -1,5 +1,5 @@
 # clusters.py from Collective Intelligence by Toby Segaran
-# potentially edited by J. Macoskey
+# partially edited by J. Macoskey - 2017
 
 from math import sqrt
 
@@ -25,7 +25,7 @@ def pearson(v1,v2):
     sum1sq = sum([pow(v,2) for v in v1])
     sum2sq = sum([pow(v,2) for v in v2])
 
-    sumProd = sum([v1[i]*v2[i] for i in range(len(v1))])
+    sumProd = sum([v1[i] * v2[i] for i in range(len(v1))])
 
     num = sumProd - (sum1*sum2/len(v1))
     den = sqrt((sum1sq-pow(sum1,2)/len(v1))*(sum2sq-pow(sum2,2)/len(v1)))
@@ -34,12 +34,17 @@ def pearson(v1,v2):
     return 1.0-num/den
 
 class bicluster:
-    def __init__(self,vec,left=None,right=None,distance=0.0,id=None):
-        self.left=left
-        self.right=right
-        self.vec=vec
-        self.id=id
-        self.distance=distance
+    def __init__(self,
+                 vec,
+                 left=None,
+                 right=None,
+                 distance=0.0,
+                 id=None):
+                 self.left=left
+                 self.right=right
+                 self.vec=vec
+                 self.id=id
+                 self.distance=distance
 
 def hcluster(rows,distance=pearson):
     distances = {}
@@ -59,8 +64,8 @@ def hcluster(rows,distance=pearson):
             # This is like the Pij matrix.
                 try:
                     if (clust[i].id,clust[j].id) not in distances:
-                        distances[(clust[i].id,clust[j].id)]=distance(clust[i].vec,
-                        clust[j].vec)
+                        distances[(clust[i].id,clust[j].id)]= \
+                            distance(clust[i].vec,clust[j].vec)
                     # print "%d of %d" % (count,i*j)
                     # count += 1
 
