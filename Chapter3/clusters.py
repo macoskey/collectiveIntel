@@ -75,7 +75,9 @@ def hcluster(rows,distance=pearson):
                         closest = d
                         lowestpair = (i,j)
                 except:
-                    print "failed something"
+                    # print "failed something"
+                    count += 1
+        print "%d failed" % (count)
 
 # calculate the average of the two clusters
         mergevec = [(clust[lowestpair[0]].vec[i]+clust[lowestpair[1]].vec[i])/2

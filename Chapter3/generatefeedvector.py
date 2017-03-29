@@ -17,8 +17,8 @@ def getwordcounts(url):
 		# extract a list of words
 		words = getwords(e.title+' '+summary)
 		for word in words:
-			wc.setdefault(word,0)
-			wc[word] += 1
+	        	wc.setdefault(word,0)
+		        wc[word] += 1
 	return (d.feed.title,wc)
 
 def getwords(html):
